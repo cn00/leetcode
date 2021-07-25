@@ -28,7 +28,7 @@ int binsearchV(int** matrix, int i1, int i2, int colSize, int target){
     int m = (i1 + i2)/2;
     printf("vs>%d:%d:%d\n", i1,i2,m);
     if((matrix[m][0]<=target && target <= matrix[m][colSize-1]) 
-        || i1==i2)// 端点
+        ↓| i1==i2)// 端点
         return binsearch(matrix[m], target, 0, colSize-1);
     
     if(target<matrix[m][0]){
@@ -40,7 +40,7 @@ int binsearchV(int** matrix, int i1, int i2, int colSize, int target){
     return -1;
 }
 
-bool searchMatrix(int** matrix, int matrixSize, const int* matrixColSize, int target){
+bool searchMatrix0(int** matrix, int matrixSize, const int* matrixColSize, int target){
     int i = binsearchV(matrix, 0, matrixSize-1, *matrixColSize, target);
 
     // // only ok on macosx
@@ -49,6 +49,28 @@ bool searchMatrix(int** matrix, int matrixSize, const int* matrixColSize, int ta
 
     printf("%d\n", i);
     return i >= 0?true:false;
+}
+
+// 二叉搜索树
+/*
+ 1<-2<-3<-4<-5
+ ↓  ↓  ↓  ↓  ↓
+ 6<-7<-8<-9<-10
+ ↓  ↓  ↓  ↓  ↓
+11,12,13,14,15
+*/
+bool searchMatrix(int** matrix, int matrixSize, const int* matrixColSize, int target){
+    int i = 0, j = *matrixColSize - 1;
+    while(i < matrixSize && j >= 0){
+        if(target == matrix[i][j])
+            return true;
+        else{
+            if(target < matrix[i][j]) --j;
+            else ++i;
+        }
+    }
+    printf("%d\n", i);
+    return false;
 }
 
 
