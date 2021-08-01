@@ -2,4 +2,8 @@
 cd `dirname $0`
 
 echo $1
-clang $1 && ./a.out
+clang $1 -g && ./a.out
+
+if(($? != 0));then
+    lldb a.out
+fi

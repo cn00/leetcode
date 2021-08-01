@@ -51,6 +51,7 @@ int** intervalIntersection(int** firstList, int firstListSize, int* firstListCol
         l2:   --   ---
         l2: ---   ---
         l2: -------   ---
+        l2: ------------   ---
         */
         printf("%d:%d [%d:%d] [%d:%d]\n", i, j, *p1, *t1, *p2, *t2);
         if(*p1 <= *p2 && *t1 <= *t2){cl = p2;cr = t1;++i;}
