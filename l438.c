@@ -101,7 +101,7 @@ int main(int c, char** v){
     // char s[] = "baaabddaddabbbddcccbabaa";
     // char p[] = "add";
     int rs = 0;
-    int* r = findAnagrams0(s, p, &rs);
+    int* r = findAnagrams(s, p, &rs);
     for(int i = 0; i < rs; ++i){
         printf("%d,", r[i]);
     }
