@@ -39,16 +39,15 @@ void pr(char** g, int m, int n){
         printf("\n");
     }
 }
-void markOne(char** g, int m, int n, int i, int j){
-    int* si = malloc(m*n*sizeof(int));
-    int* sj = malloc(m*n*sizeof(int));
-    int a = i, b = j, mi = 0, mj = 0, p = -1;
+typedef struct{int i,j;} P;
+void markOne(char** g, int m, int n, int i, int j, P* si){
+    int p = -1;
     while(0<=i&&i<m&&0<=j&&j<n){
         if(g[i][j] == '1'){
             ++p;
-            si[p] = i;
-            sj[p] = j;
-            g[si[p]][sj[p]]='x';
+            si[p].i = i;
+            si[p].j = j;
+            g[i][j]='x';
         }
         printf("%d:%d  ", i, j);
         if(j+1<n&&g[i][j+1]=='1')++j;       //>
@@ -59,31 +58,31 @@ void markOne(char** g, int m, int n, int i, int j){
         {
             printf("<");
             --p;
-            i = si[p];
-            j = sj[p];
+            i = si[p].i;
+            j = si[p].j;
         }
         else{
-            printf("mi:%d mj:%d\n", mi, mj);
+            printf("i:%d j:%d\n", i, j);
             break;
         }
     }
-    free(si);
-    free(sj);
 }
 
 int numIslands(char** grid, int gridSize, int* gridColSize){
     const int m = gridSize, n = *gridColSize;
-    int mi = 0, mj = 0, c = 0;
-    for(;mi<m;++mi){
-        for(mj = 0;mj<n;++mj){
-            if(grid[mi][mj] == '1'){
+    P* si = malloc(m*n*sizeof(P));
+    int c = 0;
+    for(int i = 0;i<m;++i){
+        for(int j = 0;j<n;++j){
+            if(grid[i][j] == '1'){
                 ++c;
-                markOne(grid, m, n, mi, mj);
-                printf(">%d\tmi:%d mj:%d\n", c, mi, mj);
+                markOne(grid, m, n, i, j, si);
+                printf(">%d\ti:%d j:%d\n", c, i, j);
                 pr(grid, m, n);
             }
         }
     }
+    free(si);
     return c;
 }
 
