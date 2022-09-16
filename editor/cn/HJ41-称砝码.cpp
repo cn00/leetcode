@@ -46,12 +46,12 @@ int main(){
             }
             else{
                 dp[i][j]=dp[i-1][j]||dp[i-1][j-Weight[i-1]];
+            }
                 printf("%d-%-2d:",i,j);
                 for(int k=0;k<=sum;k++){
                     cout<<dp[i][k]<<",";
                 }
                 cout<<">"<<dp[i][j]<<endl;
-            }
             if(dp[i][j]){
                  ok.insert(j);
             }
@@ -62,6 +62,8 @@ int main(){
         }
         cout<<endl;
     }
+
+    cout<<"val :";
     for (auto it = ok.begin(); it != ok.end(); it++) {
         cout << *it<<",";
     }
