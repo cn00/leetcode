@@ -97,15 +97,14 @@ func main() {
 	sum2 := uint(0)
 	for i := uint(0); i < uint(len(w2)); i++ {
 		sum2 += w2[i]
-		for j := sum2; j > w2[i]; j-- {
+		for j := sum2; j > w2[i]; j-- { // 单维状态需倒序，防止小端状态干扰
 			if dp.Get(j - w2[i]) {
 				dp.Set(j)
-				//fmt.Println(i,j, w2[i],":",dp.BinStr())
+				fmt.Println(i, j, w2[i], ":", dp.BinStr())
 			}
 		}
-		dp.Set(w2[i])
-		//fmt.Println(i,w2[i],":",dp.BinStr())
+		dp.Set(w2[i]) // 在内循环测试后再放入，否则会重复放入
+		fmt.Println(i, w2[i], ":", dp.BinStr())
 	}
-	//fmt.Println(dp.BinStr())
 	fmt.Println(dp.Count())
 }
